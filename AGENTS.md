@@ -7,4 +7,4 @@
 - Prefer screenshots rendered from the source PDF over self-authored diagrams. If discussing a figure, table, or architecture, show the relevant page screenshot first.
 - Use the official arXiv API for metadata and candidate resolution before falling back to generic web search.
 - Ground claims in the paper and cite page, section, figure, or table when possible.
-- Store temporary rendered images under `.paper-reader/` inside this workspace.
+- Store rendered images inside the active paper workspace, preferably under its `assets/` directory.

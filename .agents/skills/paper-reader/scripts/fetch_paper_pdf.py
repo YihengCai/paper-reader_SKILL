@@ -19,7 +19,7 @@ PDF_SIGNATURE = b"%PDF-"
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Resolve arXiv metadata and download the paper PDF into .paper-reader/papers."
+        description="Resolve arXiv metadata and download the paper PDF into the current directory."
     )
     parser.add_argument(
         "query",
@@ -37,8 +37,8 @@ def parse_args():
     )
     parser.add_argument(
         "--output-dir",
-        default=".paper-reader/papers",
-        help="Directory for downloaded PDFs when --output is not provided",
+        default=".",
+        help="Directory for downloaded PDFs when --output is not provided. Defaults to the current directory.",
     )
     parser.add_argument(
         "--filename",
@@ -274,7 +274,7 @@ def resolve_and_download(
     *,
     kind="auto",
     output=None,
-    output_dir=".paper-reader/papers",
+    output_dir=".",
     filename=None,
     overwrite=False,
     max_results=5,

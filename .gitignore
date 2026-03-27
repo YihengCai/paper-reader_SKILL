@@ -6,8 +6,5 @@
 __pycache__/
 *.pyc
 
-# Local paper-reader temp artifacts
-.paper-reader/
-
 # Future paper output folders with timestamp-prefixed names
 /[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9][0-9][0-9]-*/

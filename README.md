@@ -28,7 +28,6 @@
 
 不会提交：
 
-- `.paper-reader/` 临时文件
 - `__pycache__/` 和 `*.pyc`
 - `.DS_Store`
 - 每篇论文生成的时间戳工作目录

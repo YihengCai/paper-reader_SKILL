@@ -34,7 +34,10 @@ def parse_args():
     )
     parser.add_argument(
         "--output-dir",
-        help="Output directory. Defaults to .paper-reader/renders/<pdf-stem>",
+        help=(
+            "Output directory. Defaults to a sibling assets/ directory when present, "
+            "otherwise <pdf-stem>-renders beside the PDF."
+        ),
     )
     parser.add_argument(
         "--prefix",
@@ -82,6 +85,13 @@ def parse_page_spec(spec):
     if not pages:
         raise ValueError("No pages requested")
     return sorted(pages)
+
+
+def default_output_dir_for_pdf(pdf_path):
+    assets_dir = pdf_path.parent / "assets"
+    if assets_dir.is_dir():
+        return assets_dir.resolve()
+    return (pdf_path.parent / f"{pdf_path.stem}-renders").resolve()
 
 
 def choose_renderer():
@@ -238,7 +248,7 @@ def main():
     output_dir = (
         Path(args.output_dir).expanduser().resolve()
         if args.output_dir
-        else (Path.cwd() / ".paper-reader" / "renders" / pdf_path.stem).resolve()
+        else default_output_dir_for_pdf(pdf_path)
     )
     output_dir.mkdir(parents=True, exist_ok=True)
     prefix = args.prefix or pdf_path.stem

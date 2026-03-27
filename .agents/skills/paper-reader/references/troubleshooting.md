@@ -27,7 +27,7 @@ ls -l /etc/ssl/cert.pem
 - Preferred full workflow: `scripts/prepare_paper_workspace.py`. It creates the timestamped paper folder, downloads `paper.pdf`, creates `summary.md`, and prepares `assets/`.
 - For full reads, `scripts/arxiv_api.py` is no longer the first command. It is only a metadata helper and troubleshooting tool.
 - If you only need the PDF itself, use `scripts/fetch_paper_pdf.py`, not ad-hoc `curl`.
-- `fetch_paper_pdf.py` resolves arXiv IDs and titles through `arxiv_api.py`, reuses valid cached PDFs, and rejects HTML/error pages that were saved with a `.pdf` suffix.
+- `fetch_paper_pdf.py` resolves arXiv IDs and titles through `arxiv_api.py`, reuses a valid PDF already present at the target path, and rejects HTML/error pages that were saved with a `.pdf` suffix.
 - If a script reports `downloaded content is not a PDF`, inspect the preview in stderr; arXiv or an intermediate proxy likely returned HTML instead of the binary PDF.
 - If the API lookup fails but the input is an exact arXiv ID or URL, `fetch_paper_pdf.py` can still fall back to direct PDF URLs. For title-only queries, you need API access.
 - TLS fixes are the same as for `arxiv_api.py`: try `--cafile /etc/ssl/cert.pem` if Python cannot verify arXiv's certificate.

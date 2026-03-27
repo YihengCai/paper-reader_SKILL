@@ -35,13 +35,13 @@ description: >
 - 只要用户是在让你完整读一篇论文、总结一篇论文，或做需要落盘的论文分析，第一步必须运行 `scripts/prepare_paper_workspace.py`。不要先单独运行 `scripts/arxiv_api.py` 或 `scripts/fetch_paper_pdf.py`。
 - 用户给 arXiv ID、arXiv URL、DOI 风格 arXiv 标识或标题时，`scripts/prepare_paper_workspace.py` 会自己完成解析、命名目录、下载 PDF 和初始化 `summary.md`。
 - `scripts/arxiv_api.py` 现在只用于两类场景：用户明确只想看元数据/候选结果；或者你在排查解析失败、查询语法和限流问题。
-- 不要默认把 PDF 下载到 `.paper-reader/papers/` 再手工搬运；优先让 `prepare_paper_workspace.py` 直接把 PDF 落到目标目录里。
+- 不要默认把 PDF 先下载到共享临时目录再手工搬运；优先让 `prepare_paper_workspace.py` 直接把 PDF 落到目标目录里。
 - 只有在需要查询语法、字段或限流规则时，才读 `references/arxiv-api.md`。
 
 ### 1.5 完整读论文时的强制动作
 
 - 运行 `scripts/prepare_paper_workspace.py` 后，记录它返回的 `workspace.directory`、`workspace.summary_markdown`、`workspace.assets_directory` 和 `workspace.pdf_path`。
-- 后续所有截图、裁图和其他资源都写到 `workspace.assets_directory`，不要散落到 `.paper-reader/` 或其他临时目录。
+- 后续所有截图、裁图和其他资源都写到 `workspace.assets_directory`，不要散落到其他临时目录。
 - 在最终回复用户之前，必须把完整总结写入 `workspace.summary_markdown`，不能只保留脚本创建的空白骨架。
 - 如果因为网络沙箱导致 shell 里的 arXiv 请求失败，可以改用允许的联网方式继续拿元数据或 PDF；但即便如此，最后也必须回到这个工作目录里，把 `summary.md` 和 `assets/` 补齐。
 
@@ -114,7 +114,7 @@ python3 .agents/skills/paper-reader/scripts/render_pdf_pages.py /path/to/paper-w
 
 - `scripts/arxiv_api.py`: 解析 arXiv ID、URL、标题或原始查询，返回结构化 JSON。
 - `scripts/prepare_paper_workspace.py`: 创建 `时间戳_标题_arxivid` 论文工作目录，生成 `summary.md` 和 `assets/`，并把 PDF 放到 `paper.pdf`。
-- `scripts/fetch_paper_pdf.py`: 解析 arXiv 目标并下载 PDF，默认写到 `.paper-reader/papers/`，会复用已有有效文件并校验 PDF 头。
+- `scripts/fetch_paper_pdf.py`: 解析 arXiv 目标并下载 PDF；未显式指定路径时默认写到当前目录，会复用目标路径下已有的有效文件并校验 PDF 头。
 - `scripts/render_pdf_pages.py`: 渲染 PDF 页面，并可直接裁出 figure / table。
 - `references/output-style.md`: 论文解读的默认输出结构、语气和取舍标准。
 - `references/arxiv-api.md`: arXiv API 查询语法和字段说明。
