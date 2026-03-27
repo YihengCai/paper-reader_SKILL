@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paper Reader"
+  short_description: "用中文读论文，优先用原文裁图把方法和结果讲清楚"
+  default_prompt: "Use $paper-reader to read this paper from a PDF path, arXiv ID, URL, title, or screenshot. For a full paper read, start by running prepare_paper_workspace.py, use its workspace as the single source of truth, write the final summary into summary.md, keep images in assets/, and explain the paper in Chinese like a knowledgeable colleague with relevant cropped figures or tables."
